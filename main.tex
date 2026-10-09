@@ -1,183 +1,154 @@
-% This is samplepaper.tex, a sample chapter demonstrating the
-% LLNCS macro package for Springer Computer Science proceedings;
-% Version 2.25 of 2026/09/03
-%
 \documentclass[runningheads]{llncs}
-%
 \usepackage[T1]{fontenc}
-% T1 fonts will be used to generate the final print and online PDFs,
-% so please use T1 fonts in your manuscript whenever possible.
-% Other font encondings may result in incorrect characters.
-%
-
-\usepackage{mathptmx}       % selects Times Roman as basic font
-
-
+\usepackage{mathptmx}
 \usepackage{graphicx}
-% Used for displaying a sample figure. If possible, figure files should
-% be included in EPS format.
-%
-% If you use the hyperref package, please uncomment the following two lines
-% to display URLs in blue roman font according to Springer's eBook style:
-%\usepackage{color}
-%\renewcommand\UrlFont{\color{blue}\rmfamily}
-%\urlstyle{rm}
-%
+\usepackage{color}
+\newcommand{\NUM}[1]{\textcolor{red}{#1}}
+\newcommand{\TODO}[1]{\textcolor{red}{#1}}
+
 \begin{document}
-%
 \title{Integrating Microclimate and Future Climate Scenarios in Urban Building Energy Modelling: Simulating Indoor Overheating, Energy Demand, and Prospective Life Cycle Assessment in Antwerp City, Belgium}
-%
-%\titlerunning{Abbreviated paper title}
-% If the paper title is too long for the running head, you can set
-% an abbreviated paper title here
-%
+\titlerunning{Microclimate, Energy Demand, Overheating, and Life Cycle Assessment}
+
 \author{Richard Dean F. Morales\inst{1} \and
 Dirk Lauwaet\inst{2} \and
 Isabela Pichardo-Velázquez\inst{3,4} \and
-\inst{3} \and
 Yinthe Broeckx\inst{1} \and
 Benjamin Lanssens\inst{2} \and
-Amaryllis Audenaert\inst{1} \and
 Antonino Marvuglia\inst{3} \and
+Amaryllis Audenaert\inst{1} \and
 Yixiao Ma\inst{2} \and
-Stijn Verbeke\inst{1,2,5}} 
-%
-\authorrunning{F. Author et al.}
-% First names are abbreviated in the running head.
-% If there are more than two authors, 'et al.' is used.
-%
+Stijn Verbeke\inst{1,2,5}}
+\authorrunning{R. D. F. Morales et al.}
+
 \institute{University of Antwerp, Antwerp, Belgium \and
-Flemish Insititute for Technological Research (VITO), Mol, Belgium \and
-Luxembourg Insititute of Science and Technology \and
-University of Luxembourg, Luxembourg \and
+Flemish Institute for Technological Research (VITO), Mol, Belgium \and
+Luxembourg Institute of Science and Technology, Esch-sur-Alzette, Luxembourg \and
+University of Luxembourg, Esch-sur-Alzette, Luxembourg \and
 EnergyVille, Genk, Belgium}
-%
-\maketitle              % typeset the header of the contribution
-%
+
+\maketitle
+
 \begin{abstract}
-The compounding impacts of the Urban Heat Island (UHI) effect and climate change pose severe risks to the thermal resilience of dense urban environments. Standard building performance simulations relying on macro-scale historic weather data frequently underestimate localized thermal loads and subsequent indoor overheating. This study presents an innovative Urban Building Energy Modelling (UBEM) framework applied to the historic city center of Antwerp, utilizing Level of Detail 2 (LoD 2) building geometries to simulate localized microclimates while simultaneously projecting performance into future climate horizons. By integrating high-resolution microclimate data, the model explicitly captures district-specific thermal intensification compared to standard historic weather baselines. Preliminary results quantify this impact, revealing that microclimatic UHI effects increase indoor overheating hours by 21\% while concurrently reducing annual heating demand by 10\% compared to historic weather datasets. To evaluate long-term mitigation and adaptation pathways and account for the environmental cost of necessary physical interventions, the study incorporates building stock transition scenarios projected under distinct future climate pathways, specifically contrasting the low-emission SSP1-2.6 and high-emission SSP3-7.0 scenarios. Under these future horizons, microclimatic compounding is expected to further escalate indoor heat vulnerability. A comprehensive Life Cycle Assessment (LCA) of the district is integrated into the methodology for a robust evaluation of shifting heating energy demands and overheating risks. The LCA highlights the environmental trade-offs of the required urban transition strategies, contrasting the initial embodied carbon of necessary structural interventions against their long-term operational emission savings across different climate realities. This research demonstrates the necessity of coupling high-detail geometric modelling with aligned future weather, microclimate, and lifecycle transition projections to accurately inform the climate-proofing of cities.
+Urban microclimate and climate change affect both energy demand and indoor overheating in buildings. Building stock transition strategies also introduce environmental impacts through the production, replacement, and disposal of materials and technical systems. This study links these processes for the historic city centre of Antwerp, Belgium. The assessment comprises three stages: microclimate and future climate modelling, physics-based building performance simulation, and prospective Life Cycle Assessment (LCA). Level of Detail~2 CityGML geometries are converted into EnergyPlus epJSON models to calculate heating demand and hourly operative temperatures. Historical reference weather is compared with local microclimate weather, followed by future climate conditions under SSP1-2.6 and SSP3-7.0. Preliminary simulations indicate 21\% more indoor overheating hours and 10\% lower annual heating demand with microclimate weather than with historical reference weather. These results indicate that lower heating demand can coincide with greater indoor overheating. The prospective LCA evaluates the embodied impacts of building stock transition strategies alongside changes in operational impacts. The assessment examines whether strategies that reduce energy demand also limit indoor overheating. Their environmental performance is compared under future climate and energy-supply scenarios.
 
-\keywords{Microclimate  \and Future Climate \and Urban Building Energy Modelling \and Urban Building Comfort Modelling \and Life Cycle Assessment}
+\keywords{Microclimate \and Future Climate \and Urban Building Energy Modelling \and Indoor Overheating \and Life Cycle Assessment}
 \end{abstract}
-%
-%
-%
-\section{First Section}
-\subsection{A Subsection Sample}
-Please note that the first paragraph of a section or subsection is
-not indented. The first paragraph that follows a table, figure,
-equation etc. does not need an indent, either.
 
-Subsequent paragraphs, however, are indented.
+\section{Introduction}
 
-\subsubsection{Sample Heading (Third Level)} Only two levels of
-headings should be numbered. Lower level headings remain unnumbered;
-they are formatted as run-in headings.
+Climate change and the Urban Heat Island (UHI) effect influence the outdoor conditions experienced by urban buildings. These conditions affect heat transfer through the building envelope and the potential for heat removal by ventilation. Assessing indoor overheating requires dynamic building performance simulation with weather data that represent the local climate~\cite{Ma2023Toolchain,Morales2025Review}.
 
-\paragraph{Sample Heading (Fourth Level)}
-The contribution should contain no more than four levels of
-headings. Table~\ref{tab1} gives a summary of all heading levels.
+Urban Building Energy Modelling (UBEM) provides a basis for assessing energy demand across building stocks. Previous work converted CityJSON geometry into EnergyPlus models to assess summer operative temperatures in Antwerp~\cite{Morales2025CityJSON}. Extending this approach to future climate requires local weather projections and consistent assumptions about building operation. Evaluating building stock transition strategies also requires the environmental impacts of materials, technical systems, and energy supply.
 
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
+This study links microclimate and future climate modelling, building performance simulation, and prospective Life Cycle Assessment (LCA) for Antwerp's historic city centre. Three questions are examined. First, how does local microclimate change heating demand and indoor overheating relative to historical reference weather? Second, how do building stock transition strategies perform under SSP1-2.6 and SSP3-7.0? Third, how do their embodied and operational impacts compare over the assessment period? The same buildings and transition strategies are carried through the three stages.
 
+% Draft status: the two preliminary percentages originate in the supplied abstract.
+% The climate and LCA methods below are proposed text for technical review.
+% Building model assumptions follow the journal draft where specified.
 
-\noindent Displayed equations are centered and set on a separate
-line.
+\section{Microclimate and Future Climate}
+\label{sec:climate}
+
+% VITO: Expand the microclimate methods and add the corresponding figures.
+\subsection{Microclimate modelling}
+
+UrbClim couples a land surface scheme with a three-dimensional atmospheric boundary layer model to represent urban climate~\cite{DeRidder2015UrbClim}. Urban surfaces are represented as an impermeable slab, with specified thermal and radiative properties and anthropogenic heat fluxes. Ma et al.~\cite{Ma2023Toolchain} linked urban climate modelling with dynamic building simulation to assess district-level indoor overheating.
+
+\TODO{Add the Antwerp model setup, spatial resolution, validation, and microclimate results. Include the microclimate figures.}
+
+% VITO: Specify the historical and future climate inputs and add comparison figures.
+\subsection{Historical and future climate scenarios}
+
+Historical conditions are compared with future climate scenarios under SSP1-2.6 and SSP3-7.0~\cite{IPCC2021WGI}.
+
+\TODO{Add the reference period, future periods, climate inputs, and scenario-generation method. Include the climate comparison figures.}
+
+% LIST: Complete the EPW conversion method.
+\subsection{Conversion to EPW}
+
+UrbClim outputs were converted to EnergyPlus Weather (EPW) files for the building simulations.
+
+\TODO{Document the converted variables, supplementary data, and temporal and spatial alignment.}
+
+\section{Physics-Based Simulations of Energy Demand and Indoor Overheating}
+\label{sec:buildings}
+
+\subsection{Case study and building models}
+
+The case study covers \NUM{number of buildings} buildings in Antwerp's historic city centre, with \NUM{conditioned floor area}~m$^2$ of conditioned floor area. LoD~2 CityGML geometry provides building orientation, envelope surfaces, and roof form. Construction properties and operational inputs complete the information required for dynamic simulation.
+
+The building models extend the earlier Antwerp workflow~\cite{Morales2025CityJSON}. That workflow converted CityJSON geometry into EnergyPlus epJSON files. Here, CityGML semantic surfaces are read directly. Surface geometry is checked for planarity, orientation, and valid openings. Construction assemblies are assigned from building typologies, using available building attributes~\cite{Loga2016TABULA}. A default construction is recorded where the required attributes are unavailable. Valid explicit openings are retained where supplied; other facades receive windows from the assigned window-to-wall ratio.
+
+Floor-level thermal zones retain vertical variation in operative temperature. Buildings are grouped into block-level simulation files, with nearby buildings represented as context shading. Shared walls are treated as adiabatic boundaries. Inter-building longwave exchange remains outside the model. Context shading represents solar obstruction by surrounding buildings.
+
+\TODO{Confirm the study boundary, building count, floor area, construction assignments, zoning, and shared-wall boundary conditions. Record the EnergyPlus version and the buildings with complete outputs in every comparison.}
+
+\subsection{Energy demand and overheating metrics}
+
+EnergyPlus calculates the building heat balance and hourly thermal-zone outputs~\cite{Crawley2001EnergyPlus}. Heating is supplied by an ideal loads system at a constant setpoint of 21~$^\circ$C. Mechanical cooling is disabled in the baseline. Occupancy, internal gains, infiltration, shading operation, and window-opening controls are held constant across weather comparisons. Keeping these inputs constant allows the effect of weather to be assessed for each building.
+
+Annual heating demand is calculated by summing sensible heating energy across thermal zones. Building-level demand is divided by the corresponding conditioned floor area and reported in kWh/m$^2$. Aggregated energy demand is reported for the complete simulated stock. Ideal loads represent thermal energy demand; conversion to delivered energy is required for the LCA.
+
+Indoor overheating is assessed from hourly operative temperature during occupied hours from 1~May to 30~September. A fixed threshold of 26~$^\circ$C is applied. For thermal zone $z$, the exceedance percentage $p_{26,z}$ and overheating degree hours $D_{26,z}$ are calculated as
 \begin{equation}
-x + y = z
+ p_{26,z}=100\frac{\sum_{h\in H_z}\mathbf{1}(T_{\mathrm{op},z,h}>26)}{|H_z|},
+ \qquad
+ D_{26,z}=\sum_{h\in H_z}\max(T_{\mathrm{op},z,h}-26,0)\Delta t,
+ \label{eq:overheating}
 \end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
+where $H_z$ contains occupied assessment hours, $T_{\mathrm{op},z,h}$ is operative temperature in degrees Celsius, and $\Delta t=1$~h. The indicator $\mathbf{1}$ equals one when the threshold is exceeded and zero otherwise. Exceedance percentage describes the frequency of overheating; overheating degree hours also account for its magnitude. These metrics describe temperature exposure at the modelled zoning resolution.
 
-\begin{figure}
-\includegraphics[width=\textwidth]{figures/fig1}
-\Description{In LaTeX you may insert your alternative texts into your manuscript using the \verb|\Description| command in a \verb|figure| environment}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
-\end{figure}
+Overheating is calculated for each thermal zone before spatial aggregation. Floor-area-weighted exceedance is reported for each building, together with the maximum floor-level exceedance. District summaries retain the distribution across buildings and floor positions. This prevents building means from concealing the most exposed floors.
 
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
+\TODO{Confirm the baseline operation, occupancy schedule, assessment period, and overheating threshold. Check that the preliminary percentages use these definitions.}
+
+\subsection{Preliminary results and future comparisons}
+
+Preliminary simulations indicate 21\% more indoor overheating hours with microclimate weather than with historical reference weather. Annual heating demand was 10\% lower. The changes describe two responses to the weather input: reduced heating requirements and increased summer temperature exposure. Lower heating demand consequently provides only part of the information needed to assess building performance.
+
+The percentages are relative changes from the historical reference simulation. Their interpretation requires the absolute heating demand and overheating hours in both simulations, together with the assessed building count. A district-level change also needs to be distinguished from the mean change across individual buildings.
+
+\TODO{Add the absolute results, aggregation method, and complete simulation coverage for the 21\% and 10\% changes. Report their distribution across buildings and floors.}
+
+The future comparisons retain the same buildings under SSP1-2.6 and SSP3-7.0. The unchanged building stock provides the reference for assessing each transition strategy. Heating demand and overheating are compared within each climate pathway and period. Changes in the most exposed floors are examined alongside changes in aggregated energy demand.
+
+\TODO{Add future heating demand and overheating results for the unchanged building stock and each transition strategy. Identify buildings where energy demand decreases while overheating increases.}
+
+\section{Prospective Life Cycle Assessment}
+\label{sec:lca}
+
+% LIST: Expand this section and provide the pLCA methodology, results, and figures.
+The review by Pichardo-Velázquez et al.~\cite{PichardoVelazquez2026} identified fragmentation between building- and city-level research on climate adaptation and mitigation. It recommends coupling UBEM with urban LCA to assess environmental trade-offs across scales.
+
+The prospective LCA (pLCA) used the same building model inputs and assumptions as the physics-based simulations described in Section~\ref{sec:buildings}. Building geometry, construction assemblies, and operational assumptions were retained. Simulated energy demand was used to derive operational energy inputs for pLCA.
+
+\subsection{Assessment methodology}
+
+\TODO{Specify the functional unit, system boundary, reference study period, inventory data, and prospective scenarios. Describe the energy conversion and impact assessment methods.}
+
+\subsection{Results}
+
+\TODO{Add the pLCA results, figures, and interpretation alongside energy demand and indoor overheating.}
+
+\section{Discussion and Conclusions}
+
+The preliminary comparison indicates 21\% more overheating hours and 10\% lower heating demand when local microclimate weather is used. These changes support evaluating heating demand and indoor overheating together. Floor-level assessment retains temperature variation within buildings, while district totals describe aggregated energy demand.
+
+The prospective LCA extends this comparison to the materials and technical systems required by building stock transition strategies. Their environmental performance depends on installation dates, replacement needs, delivered energy, and future production processes. The future-climate and LCA results are required to establish which strategies reduce environmental impacts while limiting indoor overheating.
+
+The assessment remains conditional on assigned constructions, standardised operation, and the selected weather and inventory scenarios. Independent observations of outdoor and indoor conditions are needed to evaluate prediction accuracy. The proposed climate coupling also limits conclusions about feedback from building operation to the urban microclimate.
+
+\TODO{Complete the conclusions with the future-climate and LCA findings. State which transition strategies perform consistently across the assessed scenarios.}
 
 \begin{credits}
-\subsubsection{\ackname} A bold run-in heading in small font size at the end of the paper is
-used for general acknowledgments, for example: This study was funded
-by X (grant number Y).
+\subsubsection{\ackname}
+\TODO{Insert the funding and data acknowledgements applicable to this study.}
 
 \subsubsection{\discintname}
-It is now necessary to declare any competing interests or to specifically
-state that the authors have no competing interests. Please place the
-statement with a bold run-in heading in small font size beneath the
-(optional) acknowledgments\footnote{If EquinOCS, our proceedings submission
-system, is used, then the disclaimer can be provided directly in the system.},
-for example: The authors have no competing interests to declare that are
-relevant to the content of this article. Or: Author A has received research
-grants from Company W. Author B has received a speaker honorarium from
-Company X and owns stock in Company Y. Author C is a member of committee Z.
+\TODO{Insert the disclosure of interests confirmed by all authors.}
 \end{credits}
-%
-% ---- Bibliography ----
-%
-% BibTeX users should specify bibliography style 'splncs04'.
-% References will then be sorted and formatted in the correct style.
-%
-% \bibliographystyle{splncs04}
-% \bibliography{mybibliography}
-%
-\begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
 
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
-
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
-\end{thebibliography}
+\bibliographystyle{splncs04}
+\bibliography{references}
 \end{document}
