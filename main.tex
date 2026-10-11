@@ -55,28 +55,28 @@ This study links microclimate and future climate modelling, building performance
 
 UrbClim couples a land surface scheme with a three-dimensional atmospheric boundary layer model to represent urban climate~\cite{DeRidder2015UrbClim}. Urban surfaces are represented as an impermeable slab, with specified thermal and radiative properties and anthropogenic heat fluxes. Ma et al.~\cite{Ma2023Toolchain} linked urban climate modelling with dynamic building simulation to assess district-level indoor overheating.
 
-\TODO{Add the Antwerp model setup, spatial resolution, validation, and microclimate results. Include the microclimate figures.}
+\TODO{c/o VITO: Add the Antwerp model setup, spatial resolution, validation, and microclimate results. Include the microclimate figures.}
 
 % VITO: Specify the historical and future climate inputs and add comparison figures.
 \subsection{Historical and future climate scenarios}
 
 Historical conditions are compared with future climate scenarios under SSP1-2.6 and SSP3-7.0~\cite{IPCC2021WGI}.
 
-\TODO{Add the reference period, future periods, climate inputs, and scenario-generation method. Include the climate comparison figures.}
+\TODO{c/o VITO: Add the reference period, future periods, climate inputs, and scenario-generation method. Include the climate comparison figures.}
 
 % LIST: Complete the EPW conversion method.
 \subsection{Conversion to EPW}
 
 UrbClim outputs were converted to EnergyPlus Weather (EPW) files for the building simulations.
 
-\TODO{Document the converted variables, supplementary data, and temporal and spatial alignment.}
+\TODO{c/o LIST: Document the converted variables, supplementary data, and temporal and spatial alignment.}
 
 \section{Physics-Based Simulations of Energy Demand and Indoor Overheating}
 \label{sec:buildings}
 
 \subsection{Case study and building models}
 
-The case study covers \NUM{number of buildings} buildings in Antwerp's historic city centre, with \NUM{conditioned floor area}~m$^2$ of conditioned floor area. LoD~2 CityGML geometry provides building orientation, envelope surfaces, and roof form. Construction properties and operational inputs complete the information required for dynamic simulation.
+The case study covers 1473 buildings in Antwerp's historic city centre, Sint-Andries. LoD~2 CityGML geometry provides building orientation, envelope surfaces, and roof form. Construction properties and operational inputs complete the information required for dynamic simulation.
 
 The building models extend the earlier Antwerp workflow~\cite{Morales2025CityJSON}. That workflow converted CityJSON geometry into EnergyPlus epJSON files. Here, CityGML semantic surfaces are read directly. Surface geometry is checked for planarity, orientation, and valid openings. Construction assemblies are assigned from building typologies, using available building attributes~\cite{Loga2016TABULA}. A default construction is recorded where the required attributes are unavailable. Valid explicit openings are retained where supplied; other facades receive windows from the assigned window-to-wall ratio.
 
@@ -119,9 +119,7 @@ The future comparisons retain the same buildings under SSP1-2.6 and SSP3-7.0. Th
 \label{sec:lca}
 
 % LIST: Expand this section and provide the pLCA methodology, results, and figures.
-The review by Pichardo-Velázquez et al.~\cite{PichardoVelazquez2026} identified fragmentation between building- and city-level research on climate adaptation and mitigation. It recommends coupling UBEM with urban LCA to assess environmental trade-offs across scales.
-
-The prospective LCA (pLCA) used the same building model inputs and assumptions as the physics-based simulations described in Section~\ref{sec:buildings}. Building geometry, construction assemblies, and operational assumptions were retained. Simulated energy demand was used to derive operational energy inputs for pLCA.
+Coupling urban building simulations with urban LCA is necessary to assess environmental trade-offs across scales ~\cite{PichardoVelazquez2026}. The prospective LCA (pLCA) used the consistent building model inputs and assumptions as the physics-based simulations described in Section~\ref{sec:buildings}. Also, the simulated energy demand was used to derive operational energy inputs for pLCA.
 
 \subsection{Assessment methodology}
 
@@ -129,7 +127,7 @@ The prospective LCA (pLCA) used the same building model inputs and assumptions a
 
 \subsection{Results}
 
-\TODO{Add the pLCA results, figures, and interpretation alongside energy demand and indoor overheating.}
+\TODO{c/o LIST: Add the pLCA results, figures, and interpretation alongside energy demand and indoor overheating.}
 
 \section{Discussion and Conclusions}
 
