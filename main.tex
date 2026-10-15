@@ -7,7 +7,7 @@
 \newcommand{\TODO}[1]{\textcolor{red}{#1}}
 
 \begin{document}
-\title{Integrating Microclimate and Future Climate Scenarios in Urban Building Energy Modelling: Simulating Indoor Overheating, Energy Demand, and Prospective Life Cycle Assessment in Antwerp City, Belgium}
+\title{Microclimate, Future Climate and Prospective Life Cycle Assessment in Urban Building Energy Modelling - the case of Antwerp City, Belgium}
 \titlerunning{Microclimate, Energy Demand, Overheating, and Life Cycle Assessment}
 
 \author{Richard Dean F. Morales\inst{1} \and
@@ -30,7 +30,7 @@ EnergyVille, Genk, Belgium}
 \maketitle
 
 \begin{abstract}
-The combined impact of Urban heat islands (UHI) and climate change affects both energy demand and indoor overheating in buildings. Building stock transition strategies also introduce environmental impacts through the production, replacement, and disposal of materials and technical systems. This study links these processes for the historic city centre of Antwerp, Belgium. The assessment comprises three stages: microclimate and future climate modelling, physics-based building performance simulation, and prospective Life Cycle Assessment (LCA). Level of Detail~2 CityGML geometries are converted into EnergyPlus epJSON models to calculate heating demand and hourly operative temperatures. Historical reference weather is compared with local microclimate weather, followed by future climate conditions under SSP1-2.6 and SSP3-7.0. Preliminary simulations indicate 21\% more indoor overheating hours and 10\% lower annual heating demand with microclimate weather than with historical reference weather. These results indicate that lower heating demand can coincide with greater indoor overheating. The prospective LCA evaluates the embodied impacts of building stock transition strategies alongside changes in operational impacts. The assessment examines whether strategies that reduce energy demand also limit indoor overheating. Their environmental performance is compared under future climate and energy-supply scenarios.
+The combined impact of Urban heat islands (UHI) and climate change affects both energy demand and indoor overheating in buildings. Building stock transition strategies also introduce environmental impacts through the production, replacement, and disposal of materials and technical systems. This study links these processes for the historic city centre of Antwerp, Belgium. The assessment comprises three stages: microclimate and future climate modelling, physics-based building performance simulation, and prospective Life Cycle Assessment (pLCA). Level of Detail~2 CityGML data, along with required simulation data, are translated into EnergyPlus epJSON models to calculate heating demand and hourly operative temperatures. Historical reference weather is compared with local microclimate weather, followed by future climate conditions under SSP1-2.6 and SSP3-7.0. Preliminary simulations indicate \TODO{21\%} more indoor overheating hours and \TODO{10\%} lower annual heating demand with microclimate weather than with historical reference weather. The prospective LCA evaluates the operational impacts and shows that \TODO{(TO DO: write compact results)}. This study shows a comprehensive workflow from microclimate modelling to urban building energy modelling to LCA.
 
 \keywords{Microclimate \and Future Climate \and Urban Building Energy Modelling \and Indoor Overheating \and Prospective Life Cycle Assessment}
 \end{abstract}
@@ -49,7 +49,7 @@ This study applies this approach to the historic city centre of Antwerp, Belgium
   \label{FIG:methods}
 \end{figure}
 
-Specifically, the objectives of this study are to: (1) characterise microclimate and future weather conditions under SSP1-2.6 and SSP3-7.0 relative to typical meteorological year (TMY) weather; (2) simulate heating demand and indoor operative temperatures under these weather conditions; (3) quantify embodied and operational impacts through prospective LCA; and (4) evaluate the trade-offs between energy demand, indoor overheating, and environmental impacts across building stock transition strategies.
+Specifically, the objectives of this study are to: (1) characterise microclimate and future weather conditions under SSP1-2.6 and SSP3-7.0 relative to typical meteorological year (TMY) weather; (2) simulate heating demand and indoor operative temperatures for the city of Antwerp under these weather conditions; (3) quantify operational impacts through prospective LCA; and (4) evaluate the trade-offs between energy demand, indoor overheating, and environmental impacts across building stock transition strategies.
 
 
 \section{Microclimate and Future Climate}
@@ -60,9 +60,8 @@ Specifically, the objectives of this study are to: (1) characterise microclimate
 
 UrbClim couples a land surface scheme with a three-dimensional atmospheric boundary layer model to represent urban climate~\cite{DeRidder2015UrbClim}. Urban surfaces are represented as an impermeable slab, with specified thermal and radiative properties and anthropogenic heat fluxes. Ma et al.~\cite{Ma2023Toolchain} linked urban climate modelling with dynamic building simulation to assess district-level indoor overheating.
 
-\TODO{Add the Antwerp model setup, spatial resolution, validation, and microclimate results. Include the microclimate figures.}
+\TODO{Add the Antwerp model setup, spatial resolution, validation, and microclimate results. Include the microclimate figures. Why microclimate vs using TMY for UBEM and LCA?}
 
-% VITO: Specify the historical and future climate inputs and add comparison figures.
 \subsection{Future climate scenarios \TODO{c/o VITO}}
 
 Historical conditions are compared with future climate scenarios under SSP1-2.6 and SSP3-7.0~\cite{IPCC2021WGI}.
@@ -110,23 +109,59 @@ Overheating is calculated for each thermal zone before spatial aggregation. Floo
 
 Preliminary simulations indicate 21\% more indoor overheating hours with microclimate weather than with historical reference weather. Annual heating demand was 10\% lower. The changes describe two responses to the weather input: reduced heating requirements and increased summer temperature exposure. Lower heating demand consequently provides only part of the information needed to assess building performance.
 
-The percentages are relative changes from the historical reference simulation. Their interpretation requires the absolute heating demand and overheating hours in both simulations, together with the assessed building count. A district-level change also needs to be distinguished from the mean change across individual buildings.
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figures/heating_demand_comparison.png}
+  \caption{Heating energy demand results of 1422 buildings in Sint-Andries, Antwerp.}
+  \label{FIG:energy}
+\end{figure}
 
-\TODO{Add the absolute results, aggregation method, and complete simulation coverage for the 21\% and 10\% changes. Report their distribution across buildings and floors.}
+The percentages are relative changes from the historical reference simulation. Their interpretation requires the absolute heating demand and overheating hours in both simulations, together with the assessed building count. A district-level change also needs to be distinguished from the mean change across individual buildings.
 
 The future comparisons retain the same buildings under SSP1-2.6 and SSP3-7.0. The unchanged building stock provides the reference for assessing each transition strategy. Heating demand and overheating are compared within each climate pathway and period. Changes in the most exposed floors are examined alongside changes in aggregated energy demand.
 
 \TODO{Add future heating demand and overheating results for the unchanged building stock and each transition strategy. Identify buildings where energy demand decreases while overheating increases.}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figures/annual_overheating_hours_maps.png}
+  \caption{Indoor overheating simulation results of 1422 buildings in Sint-Andries, Antwerp.}
+  \label{FIG:overheating}
+\end{figure}
+
+
+
+
 \section{Prospective Life Cycle Assessment \TODO{c/o LIST}}
 \label{sec:lca}
 
 % LIST: Expand this section and provide the pLCA methodology, results, and figures.
-Coupling urban building simulations with urban LCA is necessary to assess environmental trade-offs across scales ~\cite{PichardoVelazquez2026}. The prospective LCA (pLCA) used the consistent building model inputs and assumptions as the physics-based simulations described in Section~\ref{sec:buildings}. Also, the simulated energy demand was used to derive operational energy inputs for pLCA.
+Coupling urban building simulations with urban LCA is necessary to assess environmental trade-offs across scales ~\cite{PichardoVelazquez2026}. The prospective LCA (pLCA) used the consistent building model inputs and assumptions as the physics-based simulations described in Section~\ref{sec:buildings}. Also, the simulated energy demand was used to derive operational energy inputs for pLCA. premise citation
+
+
 
 \subsection{Assessment methodology \TODO{c/o LIST}}
 
 \TODO{Specify the functional unit, system boundary, reference study period, inventory data, and prospective scenarios. Describe the energy conversion and impact assessment methods.}
+
+The LCA is executed following the framework recommended by ISO 14040/14044 (CITE). 
+
+The goal and scope (system boundaries): COP, gross area floor (which is another one used in the end)
+
+fu
+
+LCIA method
+
+
+operational assessment: input data from BEM (operational inventory)
+
+lci: using shrecc - tyndp
+
+scenarios: premise - remind eu - SSP2 (low and high emission)- matching the RCP from SSP1 and SSP3. 
+Why SSP2? Becuase is the one mostly used in plca? 
+
+
+ 
 
 \subsection{Results \TODO{c/o LIST}}
 
