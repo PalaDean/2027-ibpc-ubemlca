@@ -324,3 +324,16 @@ results/
 #AI Agents
 CLAUDE.md
 AGENTS.md
+
+#simulation folder
+simulations/*
+!simulations/plot_energy.py
+!simulations/plot_overheating.py
+!simulations/README.md
+!simulations/overheating_thresholds.md
+!simulations/tests/
+!simulations/tests/test_plot_energy.py
+!simulations/tests/test_plot_overheating.py
+
+# Conference energy figures
+!figures/annual_overheating_hours_maps.pdf
